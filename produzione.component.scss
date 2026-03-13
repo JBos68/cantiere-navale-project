@@ -1,0 +1,50 @@
+.produzione-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+
+  @media (max-width: 400px) { grid-template-columns: 1fr; }
+}
+
+.prod-card mat-card-title { color: var(--navy); }
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+  font-size: 0.83rem;
+  color: #555;
+
+  mat-icon { font-size: 14px; vertical-align: middle; }
+}
+
+.progress-section { margin-bottom: 14px; }
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  font-size: 0.88rem;
+}
+
+.fase-corrente { color: var(--sea-blue); font-weight: 500; }
+
+.fasi-list { margin-top: 10px; }
+
+.fase-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+  font-size: 0.83rem;
+  color: #bbb;
+
+  &.fase-completata { color: #2e7d32; .fase-icon { color: #2e7d32; } }
+  &.fase-attiva { color: var(--navy); font-weight: 600; .fase-icon { color: var(--sea-blue); } }
+
+  .fase-icon { font-size: 17px; width: 17px; height: 17px; color: #ddd; }
+  .fase-nome { flex: 1; }
+  .fase-data { font-size: 0.73rem; color: #999; }
+}

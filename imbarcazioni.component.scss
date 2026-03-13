@@ -1,0 +1,19 @@
+.filter-card { margin-bottom: 16px; }
+
+.filter-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.filter-field {
+  flex: 1;
+  min-width: 200px;
+}
+
+.table-footer {
+  padding: 12px 0 0;
+  font-size: 0.85rem;
+  color: #666;
+}

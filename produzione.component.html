@@ -1,0 +1,46 @@
+<div class="page-container">
+  <h1 class="page-title"><mat-icon>construction</mat-icon> Produzione</h1>
+
+  <div class="produzione-grid">
+    @for (prod of produzioni; track prod.id) {
+      <mat-card class="prod-card">
+        <mat-card-header>
+          <mat-card-title>{{ prod.imbarcazioneNome }}</mat-card-title>
+          <mat-card-subtitle>Cliente: {{ prod.clienteNome }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="info-row">
+            <span><mat-icon inline>person</mat-icon> {{ prod.responsabile }}</span>
+            <span><mat-icon inline>event</mat-icon> Consegna: {{ prod.dataConsegnaPrevista | date:'dd/MM/yyyy' }}</span>
+          </div>
+          <div class="progress-section">
+            <div class="progress-header">
+              <span class="fase-corrente">{{ prod.faseCorrente }}</span>
+              <strong>{{ prod.percentualeCompletamento }}%</strong>
+            </div>
+            <mat-progress-bar
+              mode="determinate"
+              [value]="prod.percentualeCompletamento"
+              [color]="getProgressColor(prod.percentualeCompletamento)">
+            </mat-progress-bar>
+          </div>
+          <div class="fasi-list">
+            @for (fase of prod.fasi; track fase.nome) {
+              <div class="fase-item"
+                [class.fase-completata]="fase.completata"
+                [class.fase-attiva]="prod.faseCorrente === fase.nome && !fase.completata">
+                <mat-icon class="fase-icon">
+                  {{ fase.completata ? 'check_circle' : (prod.faseCorrente === fase.nome ? 'radio_button_checked' : 'radio_button_unchecked') }}
+                </mat-icon>
+                <span class="fase-nome">{{ fase.nome }}</span>
+                @if (fase.dataFine) {
+                  <span class="fase-data">{{ fase.dataFine | date:'MM/yy' }}</span>
+                }
+              </div>
+            }
+          </div>
+        </mat-card-content>
+      </mat-card>
+    }
+  </div>
+</div>

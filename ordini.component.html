@@ -1,0 +1,52 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1 class="page-title"><mat-icon>receipt_long</mat-icon> Ordini / Commesse</h1>
+    <button mat-raised-button color="primary" (click)="openNuovoOrdine()">
+      <mat-icon>add</mat-icon> Nuovo Ordine
+    </button>
+  </div>
+  <mat-card>
+    <mat-card-content>
+      <div class="table-container">
+        <table mat-table [dataSource]="ordini">
+          <ng-container matColumnDef="numero">
+            <th mat-header-cell *matHeaderCellDef>N° Ordine</th>
+            <td mat-cell *matCellDef="let o"><strong>{{ o.numero }}</strong></td>
+          </ng-container>
+          <ng-container matColumnDef="clienteNome">
+            <th mat-header-cell *matHeaderCellDef>Cliente</th>
+            <td mat-cell *matCellDef="let o">{{ o.clienteNome }}</td>
+          </ng-container>
+          <ng-container matColumnDef="imbarcazioneNome">
+            <th mat-header-cell *matHeaderCellDef>Imbarcazione</th>
+            <td mat-cell *matCellDef="let o">{{ o.imbarcazioneNome }}</td>
+          </ng-container>
+          <ng-container matColumnDef="dataOrdine">
+            <th mat-header-cell *matHeaderCellDef>Data Ordine</th>
+            <td mat-cell *matCellDef="let o">{{ o.dataOrdine | date:'dd/MM/yyyy' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="dataConsegna">
+            <th mat-header-cell *matHeaderCellDef>Consegna Prevista</th>
+            <td mat-cell *matCellDef="let o">{{ o.dataConsegna | date:'dd/MM/yyyy' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="valore">
+            <th mat-header-cell *matHeaderCellDef>Valore</th>
+            <td mat-cell *matCellDef="let o">{{ fmt(o.valore) }}</td>
+          </ng-container>
+          <ng-container matColumnDef="acconto">
+            <th mat-header-cell *matHeaderCellDef>Acconto</th>
+            <td mat-cell *matCellDef="let o">{{ fmt(o.acconto) }}</td>
+          </ng-container>
+          <ng-container matColumnDef="stato">
+            <th mat-header-cell *matHeaderCellDef>Stato</th>
+            <td mat-cell *matCellDef="let o">
+              <span class="status-chip" [class]="getStatoClass(o.stato)">{{ o.stato }}</span>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

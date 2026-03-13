@@ -1,0 +1,57 @@
+<div class="page-container">
+  <h1 class="page-title"><mat-icon>warehouse</mat-icon> Magazzino</h1>
+  <mat-card>
+    <mat-card-content>
+      <div class="table-container">
+        <table mat-table [dataSource]="articoli">
+          <ng-container matColumnDef="codice">
+            <th mat-header-cell *matHeaderCellDef>Codice</th>
+            <td mat-cell *matCellDef="let a"><strong>{{ a.codice }}</strong></td>
+          </ng-container>
+          <ng-container matColumnDef="descrizione">
+            <th mat-header-cell *matHeaderCellDef>Descrizione</th>
+            <td mat-cell *matCellDef="let a">{{ a.descrizione }}</td>
+          </ng-container>
+          <ng-container matColumnDef="categoria">
+            <th mat-header-cell *matHeaderCellDef>Categoria</th>
+            <td mat-cell *matCellDef="let a">{{ a.categoria }}</td>
+          </ng-container>
+          <ng-container matColumnDef="quantita">
+            <th mat-header-cell *matHeaderCellDef>Quantità</th>
+            <td mat-cell *matCellDef="let a">
+              <span [class.low-stock]="isLowStock(a)">{{ a.quantita }} {{ a.unitaMisura }}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="giacenzaMinima">
+            <th mat-header-cell *matHeaderCellDef>Giacenza Min.</th>
+            <td mat-cell *matCellDef="let a">{{ a.giacenzaMinima }} {{ a.unitaMisura }}</td>
+          </ng-container>
+          <ng-container matColumnDef="prezzoUnitario">
+            <th mat-header-cell *matHeaderCellDef>Prezzo Unit.</th>
+            <td mat-cell *matCellDef="let a">{{ fmt(a.prezzoUnitario) }}</td>
+          </ng-container>
+          <ng-container matColumnDef="fornitoreNome">
+            <th mat-header-cell *matHeaderCellDef>Fornitore</th>
+            <td mat-cell *matCellDef="let a">{{ a.fornitoreNome }}</td>
+          </ng-container>
+          <ng-container matColumnDef="ultimoRiordino">
+            <th mat-header-cell *matHeaderCellDef>Ultimo Riordino</th>
+            <td mat-cell *matCellDef="let a">{{ a.ultimoRiordino | date:'dd/MM/yyyy' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="stock">
+            <th mat-header-cell *matHeaderCellDef>Livello Stock</th>
+            <td mat-cell *matCellDef="let a" style="min-width:120px">
+              <mat-progress-bar
+                mode="determinate"
+                [value]="getStockPercent(a)"
+                [color]="isLowStock(a) ? 'warn' : 'primary'">
+              </mat-progress-bar>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.row-warning]="isLowStock(row)"></tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

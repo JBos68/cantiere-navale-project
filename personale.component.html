@@ -1,0 +1,49 @@
+<div class="page-container">
+  <h1 class="page-title"><mat-icon>badge</mat-icon> Personale</h1>
+  <mat-card>
+    <mat-card-content>
+      <div class="table-container">
+        <table mat-table [dataSource]="dipendenti">
+          <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef>Nome</th>
+            <td mat-cell *matCellDef="let d"><strong>{{ d.cognome }} {{ d.nome }}</strong></td>
+          </ng-container>
+          <ng-container matColumnDef="ruolo">
+            <th mat-header-cell *matHeaderCellDef>Ruolo</th>
+            <td mat-cell *matCellDef="let d">{{ d.ruolo }}</td>
+          </ng-container>
+          <ng-container matColumnDef="reparto">
+            <th mat-header-cell *matHeaderCellDef>Reparto</th>
+            <td mat-cell *matCellDef="let d">{{ d.reparto }}</td>
+          </ng-container>
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let d">{{ d.email }}</td>
+          </ng-container>
+          <ng-container matColumnDef="telefono">
+            <th mat-header-cell *matHeaderCellDef>Telefono</th>
+            <td mat-cell *matCellDef="let d">{{ d.telefono }}</td>
+          </ng-container>
+          <ng-container matColumnDef="dataAssunzione">
+            <th mat-header-cell *matHeaderCellDef>Assunto il</th>
+            <td mat-cell *matCellDef="let d">{{ d.dataAssunzione | date:'dd/MM/yyyy' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="oreSettimanali">
+            <th mat-header-cell *matHeaderCellDef>Ore/sett.</th>
+            <td mat-cell *matCellDef="let d">{{ d.oreSettimanali }}h</td>
+          </ng-container>
+          <ng-container matColumnDef="attivo">
+            <th mat-header-cell *matHeaderCellDef>Stato</th>
+            <td mat-cell *matCellDef="let d">
+              <span class="status-chip" [class]="d.attivo ? 'status-active' : 'status-sospeso'">
+                {{ d.attivo ? 'Attivo' : 'Inattivo' }}
+              </span>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

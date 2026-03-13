@@ -1,0 +1,131 @@
+<div class="page-container">
+  <h1 class="page-title">
+    <mat-icon>dashboard</mat-icon>
+    Dashboard
+  </h1>
+
+  <!-- KPI Cards -->
+  <div class="kpi-grid">
+    <mat-card class="kpi-card">
+      <mat-card-content>
+        <mat-icon class="kpi-icon" style="color:#1565c0">sailing</mat-icon>
+        <div>
+          <div class="kpi-value">{{ kpi.imbarcazioniInCostruzione }}</div>
+          <div class="kpi-label">Imbarcazioni in costruzione</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="kpi-card">
+      <mat-card-content>
+        <mat-icon class="kpi-icon" style="color:#e65100">receipt_long</mat-icon>
+        <div>
+          <div class="kpi-value">{{ kpi.ordiniAperti }}</div>
+          <div class="kpi-label">Ordini attivi</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="kpi-card">
+      <mat-card-content>
+        <mat-icon class="kpi-icon" style="color:#2e7d32">people</mat-icon>
+        <div>
+          <div class="kpi-value">{{ kpi.clientiTotali }}</div>
+          <div class="kpi-label">Clienti totali</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="kpi-card">
+      <mat-card-content>
+        <mat-icon class="kpi-icon" style="color:#6a1b9a">badge</mat-icon>
+        <div>
+          <div class="kpi-value">{{ kpi.dipendentiAttivi }}</div>
+          <div class="kpi-label">Dipendenti attivi</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="kpi-card">
+      <mat-card-content>
+        <mat-icon class="kpi-icon" style="color:#c9a84c">euro</mat-icon>
+        <div>
+          <div class="kpi-value kpi-value--small">{{ fmt(kpi.valoreProduzioneAttiva) }}</div>
+          <div class="kpi-label">Valore produzione attiva</div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Lower grid -->
+  <div class="dashboard-grid">
+
+    <!-- Ultimi ordini -->
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title class="card-title">
+          <mat-icon>receipt_long</mat-icon> Ultimi Ordini
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="table-container">
+          <table mat-table [dataSource]="ultimeCommesse">
+            <ng-container matColumnDef="numero">
+              <th mat-header-cell *matHeaderCellDef>N° Ordine</th>
+              <td mat-cell *matCellDef="let o">{{ o.numero }}</td>
+            </ng-container>
+            <ng-container matColumnDef="clienteNome">
+              <th mat-header-cell *matHeaderCellDef>Cliente</th>
+              <td mat-cell *matCellDef="let o">{{ o.clienteNome }}</td>
+            </ng-container>
+            <ng-container matColumnDef="imbarcazioneNome">
+              <th mat-header-cell *matHeaderCellDef>Imbarcazione</th>
+              <td mat-cell *matCellDef="let o">{{ o.imbarcazioneNome }}</td>
+            </ng-container>
+            <ng-container matColumnDef="valore">
+              <th mat-header-cell *matHeaderCellDef>Valore</th>
+              <td mat-cell *matCellDef="let o">{{ fmt(o.valore) }}</td>
+            </ng-container>
+            <ng-container matColumnDef="stato">
+              <th mat-header-cell *matHeaderCellDef>Stato</th>
+              <td mat-cell *matCellDef="let o">
+                <span class="status-chip" [class]="getStatoClass(o.stato)">{{ o.stato }}</span>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="ordiniColonne"></tr>
+            <tr mat-row *matRowDef="let row; columns: ordiniColonne;"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button color="primary" routerLink="/ordini">Vedi tutti gli ordini →</a>
+      </mat-card-actions>
+    </mat-card>
+
+    <!-- Produzione attiva -->
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title class="card-title">
+          <mat-icon>construction</mat-icon> Produzione Attiva
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        @for (prod of produzioneAttiva; track prod.id) {
+          <div class="prod-item">
+            <div class="prod-header">
+              <strong>{{ prod.imbarcazioneNome }}</strong>
+              <span class="prod-fase">{{ prod.faseCorrente }}</span>
+            </div>
+            <div class="prod-sub">{{ prod.clienteNome }} · {{ prod.responsabile }}</div>
+            <mat-progress-bar mode="determinate" [value]="prod.percentualeCompletamento"></mat-progress-bar>
+            <div class="prod-perc">{{ prod.percentualeCompletamento }}%</div>
+          </div>
+        }
+      </mat-card-content>
+      <mat-card-actions>
+        <a mat-button color="primary" routerLink="/produzione">Vedi produzione →</a>
+      </mat-card-actions>
+    </mat-card>
+
+  </div>
+</div>

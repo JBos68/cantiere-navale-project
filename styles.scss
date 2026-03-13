@@ -1,0 +1,123 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+:root {
+  --navy: #0d2d5e;
+  --navy-dark: #081b3d;
+  --gold: #c9a84c;
+  --sea-blue: #1565c0;
+  --white: #ffffff;
+  --light-bg: #f5f7fa;
+  --card-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.page-container {
+  padding: 24px;
+}
+
+@media (max-width: 600px) {
+  .page-container { padding: 12px; }
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--navy);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  mat-icon { color: var(--gold); }
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.kpi-card mat-card-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px !important;
+}
+
+.kpi-icon {
+  font-size: 40px !important;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.kpi-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1;
+}
+
+.kpi-value--small {
+  font-size: 1.3rem;
+}
+
+.kpi-label {
+  font-size: 0.82rem;
+  color: #666;
+  margin-top: 4px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.table-container table {
+  width: 100%;
+}
+
+.status-chip {
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.status-active, .status-in-lavorazione {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-attesa, .status-progettazione {
+  background: #fff8e1;
+  color: #f57f17;
+}
+
+.status-completato, .status-consegnato {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.status-sospeso {
+  background: #fce4ec;
+  color: #c62828;
+}
